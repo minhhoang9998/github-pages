@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công cụ Copy Prompt</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 15px;
+        }
+        button {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        button:active {
+            transform: translateY(1px);
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1000;
+        }
+        .show {
+            opacity: 1;
+        }
+
+        /* Màu sắc cho các nút */
+        .btn-1 { background-color: #FF5252; color: white; }
+        .btn-2 { background-color: #536DFE; color: white; }
+        .btn-3 { background-color: #FF9800; color: white; }
+        .btn-4 { background-color: #4CAF50; color: white; }
+        .btn-5 { background-color: #9C27B0; color: white; }
+        .btn-6 { background-color: #00BCD4; color: white; }
+        .btn-7 { background-color: #607D8B; color: white; }
+        .btn-8 { background-color: #795548; color: white; }
+        .btn-9 { background-color: #E91E63; color: white; }
+        .btn-10 { background-color: #3F51B5; color: white; }
+        .btn-11 { background-color: #009688; color: white; }
+        .btn-12 { background-color: #673AB7; color: white; }
+        .btn-13 { background-color: #FFC107; color: black; }
+        .btn-14 { background-color: #8BC34A; color: black; }
+        .btn-15 { background-color: #03A9F4; color: white; }
+    </style>
+</head>
+<body>
+    <h1>Công cụ Copy Prompt</h1>
+    
+    <div class="button-container">
+        <button class="btn-1" onclick="copyToClipboard('prompt1')">Tạo câu hỏi (Gemini 2.5 Pro)</button>
+        <button class="btn-2" onclick="copyToClipboard('prompt2')">Tạo flashcards (Claude 3.7)</button>
+        <button class="btn-3" onclick="copyToClipboard('prompt3')">Sider Wisebase</button>
+        <button class="btn-4" onclick="copyToClipboard('prompt4')">Bỏ ngắt dòng (Claude 3.7 thinking)</button>
+        <button class="btn-5" onclick="copyToClipboard('prompt5')">Deep research Sider</button>
+        <button class="btn-6" onclick="copyToClipboard('prompt6')">Phân tích BA theo phác đồ</button>
+        <button class="btn-7" onclick="copyToClipboard('prompt7')">image to text</button>
+        <button class="btn-8" onclick="copyToClipboard('prompt8')">Dịch sang VN</button>
+        <button class="btn-9" onclick="copyToClipboard('prompt9')">Tóm ý đoạn văn</button>
+        <button class="btn-10" onclick="copyToClipboard('prompt10')">Tóm diễn tiến</button>
+        <button class="btn-11" onclick="copyToClipboard('prompt11')">Tóm file CĐHA</button>
+        <button class="btn-12" onclick="copyToClipboard('prompt12')">Tóm file xét nghiệm</button>
+        <button class="btn-13" onclick="copyToClipboard('prompt13')">Tóm thuốc và y lệnh</button>
+        <button class="btn-14" onclick="copyToClipboard('prompt14')">Tóm tắt bệnh án 4.0</button>
+        <button class="btn-15" onclick="copyToClipboard('prompt15')">Tóm chẩn đoán</button>
+    </div>
+
+    <div id="toast" class="toast">Đã sao chép vào clipboard!</div>
+
+    <!-- Các prompt ẩn -->
+    <div id="prompt1" style="display: none;">Tôi có các đoạn văn trong các hình ảnh sau. Hãy tìm tất cả các câu hỏi có thể đặt ra với nội dung của các đoạn văn, thỏa các yêu cầu sau:
+
+- Chỉ tập trung vào kiến thức trong các đoạn văn cung cấp, không được hỏi kiến thức khác bên ngoài các đoạn văn này.
+- Không giới hạn số lượng câu hỏi, hãy đảm bảo không còn bất kỳ thông tin và dữ liệu nào còn sót lại mà chưa được đặt câu hỏi.
+- Tuy nhiên mỗi thông tin hay mỗi dữ liệu trong các đoạn văn cũng chỉ được đặt một câu hỏi duy nhất để tránh việc trùng lặp.
+- Chỉ đặt những câu hỏi mang tính học thuộc lòng, không cho phép những câu hỏi tính toán vô nghĩa hay suy luận quá xa xôi.
+
+Hãy trình bày câu hỏi và câu trả lời tương ứng.</div>
+
+    <div id="prompt2" style="display: none;">Tôi có các đoạn văn trong các hình và các cặp câu hỏi và câu trả lời tương ứng với các đoạn văn. Tạo mã html cho một trang web, trang web này sẽ bao gồm các flashcard, mặt trước các flascards là các câu hỏi. Mặt sau của flashcards sẽ là trích dẫn nguyên văn đoạn văn có đề cập đến câu trả lời (không sót một chữ nào và kèm theo dịch sang tiếng việt), không hiển thị câu trả lời. Tất cả flashcard sẽ hiển thị trên một frame lớn với cỡ chữ lớn, thứ tự các flashcard sẽ tuần tự theo thứ tự của các đoạn văn (bạn tự suy luận ra thứ tự trước sau của các đoạn văn trong các hình ảnh).</div>
+
+    <div id="prompt3" style="display: none;">Dùng thông tin trong các tài liệu để trả lời câu hỏi dưới đây. Cần chú ý rằng thông tin trong các tài liệu là khác nhau, do đó nếu xét trên mỗi tài liệu thì sẽ có đáp án khác nhau cho câu hỏi, nên tôi cần bạn đưa ra những câu trả lời khác nhau tương ứng với thông tin của mỗi tài liệu khác nhau. Câu hỏi của tôi là:</div>
+
+    <div id="prompt4" style="display: none;">Đoạn văn này đã bị ngắt dòng không đúng chỗ, hãy bỏ những ngắt dòng không hợp lý này và viết lại nguyên văn đoạn văn này không được sót một chữ nào, bất kể bạn thấy đoạn văn này có gì không đúng cũng không được thêm bớt một chữ nào, chỉ bỏ những ngắt dòng không hợp lý.</div>
+
+    <div id="prompt5" style="display: none;">Từ những những phác đồ và đồng thuận từ AHA, ESC và các hiệp hội y khoa lớn toàn cầu, những dữ liệu y khoa chuẩn xác nhất từ UpToDate, Medscape, PubMed, WebMD, Msd manual, Elsevier, National Institutes of Health, Mayo Clinic... hãy tìm kiếm tất cả các tiêu chuẩn chẩn đoán (về triệu chứng và các cận lâm sàng) và các thang điểm thường dùng nhằm chẩn đoán và đánh giá bệnh cơ tim dãn nở, trình bày cụ thể từng cái dưới dạng bảng. Hãy nêu rõ mỗi tiêu chuẩn hay thang điểm trên được lấy từ phác đồ hay nghiên cứu nào.</div>
+
+    <div id="prompt6" style="display: none;">Dưới đây là tóm tắt bệnh án và các kết quả cận lâm sàng của một bệnh nhân. Hãy dùng kiến thức y khoa chuyên sâu và chuẩn xác (tốt nhất là dựa vào các phác đồ, tiêu chuẩn, đồng thuận và các kết quả các nghiên cứu) để phân tích và biện luận những vấn đề sau:
+
+- Những chẩn đoán cho bệnh nhân này đã đúng và phù hợp hay chưa? (đúng theo tiêu chuẩn nào? định nghĩa nào? phác đồ chẩn đoán nào?)
+- Các chẩn đoán phân biệt khác có thể nghĩ tới trên bệnh nhân này.
+- Có còn đặc điểm nào về triệu chứng của bệnh nhân cần khai thác thêm hay không? Cần làm thêm các cận lâm sàng nào để chẩn đoán?
+- Điều trị ban đầu có phù hợp hay không? Đưa ra điều trị tiếp theo dành cho bệnh nhân (theo phác đồ điều trị nào? theo nghiên cứu nào?).</div>
+
+    <div id="prompt7" style="display: none;">chép lại nguyên văn văn bản trong hình ảnh, không sót một chữ nào</div>
+
+    <div id="prompt8" style="display: none;">Dịch nguyên văn nội dung sang tiếng việt, không bỏ sót một chữ nào. Chỉ hiển thị nội dung đã được dịch.</div>
+
+    <div id="prompt9" style="display: none;">Tóm đoạn văn sau thành những ý ngắn gọn nhất có thể nhưng không được bỏ sót thông tin và số liệu.</div>
+
+    <div id="prompt10" style="display: none;">Trình bày lại các thông tin trong cột diễn tiến bệnh theo thời gian cụ thể và thỏa các yêu cầu sau:
+
+- Các giá trị sinh hiệu (mạch (M), huyết áp (HA), SpO2, nhịp thở) nếu trong giới hạn bình thường thì không cần phải trình bày ra.
+- Các cụm từ này nếu thấy thì không cần trình bày lại: "bệnh tỉnh", "bệnh nhân tỉnh" ,"tiếp xúc tốt", "tiếp xúc được", "niêm hồng", "da niêm hồng", "nằm đầu ngang", "tim rõ", "phổi thô", "bụng mềm", "gan lách sờ không chạm", "thở đều", "thể trạng trung bình"
+- Sinh hiệu, tri giác và các triệu chứng viết nối tiếp liên tục và cách nhau bởi dấu phẩy.
+- Riêng phần "bệnh sử","tiền sử" thì phải chép ra nguyên văn, không sót một chữ nào.
+- Không trình bày "chẩn đoán" hoặc "vấn đề"
+- Nếu thời điểm nào mà cột diễn tiến trống thì không được trình bày thời điểm này ra.
+- Không trình bày xét nghiệm hay cận lâm sàng được chỉ định.
+- Không trình bày thông tin trong cột "chỉ định".</div>
+
+    <div id="prompt11" style="display: none;">Có một file bao gồm thông tin về các kết quả chẩn đoán hình ảnh của một bệnh nhân. Hãy liệt kê chính xác tất cả các kết quả cận lâm sàng này, chỉ cần kết quả, không cần những thông tin khác.</div>
+
+    <div id="prompt12" style="display: none;">Có một file bao gồm thông tin về các kết quả xét nghiệm của một bệnh nhân. Hãy liệt kê chính xác tất cả các kết quả xét nghiệm, các kết quả của cùng một xét nghiệm được nối tiếp nhau bằng dấu mũi tên và sắp xếp theo thứ tự thời gian. Cuối cùng của các kết quả là đơn vị tương ứng hợp lý. Sau đó hãy chỉ ra các xét nghiệm có sự tăng giảm bất thường.</div>
+
+    <div id="prompt13" style="display: none;">Trình bày lại các y lệnh và các thuốc đã dùng cho bệnh nhân theo các thời điểm. Chú ý nếu bất cứ y lệnh, phương pháp điều trị, hoặc thuốc nào không có sự thay đổi so với ngày trước đó thì không cần ghi lại, mà chỉ ghi là: "thêm thuốc gì, bỏ thuốc gì, các thuốc còn lại giống ngày hôm qua". Các thuốc viết nối tiếp liên tục và cách nhau bởi dấu phẩy, chỉ ghi tên thuốc, không ghi hàm lượng hay liều dùng. Không ghi các xét nghiệm hay cận lâm sàng được chỉ định, không ghi chế độ chăm sóc, chế độ dinh dưỡng.</div>
+
+    <div id="prompt14" style="display: none;">Trình bày đúng các nội dung sau:
+
+- Tóm tắt thật ngắn gọn quá trình bệnh lý theo mẫu sau: "Bệnh nhân vào viện vì … Khám ghi nhận: bệnh tỉnh, niêm hồng, không phù, tim rõ, phổi thô, bụng mềm,…"
+- Tiền sử bệnh: Viết chung một dòng, cách nhau bởi dấu phẩy.
+- Những dấu hiệu lâm sàng chính theo mẫu sau: "Bệnh tỉnh, niêm hồng, không phù, tim rõ, phổi thô, bụng mềm,…"
+- Kết quả xét nghiệm cận lâm sàng: EF chính là kết quả siêu âm tim? nếu không đề cập giá trị EF thì ghi là "EF bảo tồn"; nếu chẩn đoán có bệnh tim thiếu máu cục bộ hoặc đau thắt ngực thì ghi là " ECG thiếu máu cơ tim"; nếu chẩn đoán có viêm phổi thì ghi là "Xquang phổi thâm nhiễm"; nếu chẩn đoán có nhiễm trùng huyết hoặc sốc nhiễm trùng thì ghi là "marker nhiễm trùng tăng"; nếu chẩn đoán có nhồi máu cơ tim thì ghi là "men tim tăng"; nếu chẩn đoán có bất thường về nhịp tim thì ghi nhận kết quả ECG là bất thường đó; nếu chẩn đoán có bất thường về van tim thì ghi thêm bất thường đó vào kết quả siêu âm tim; nếu chẩn đoán có tràn dịch màng tim thì ghi thêm "tràn dịch màng tim" vào kết quả siêu âm tim; ngoài ra nếu có kết quả cận lâm sàng hay xét nghiệm cụ thể khác thì ghi nhận kết quả đó.
+- Phương pháp điều trị, chỉ chọn trong số những phương pháp sau: Chụp động mạch vành, nong và đặt stent động mạch vành, thở máy, lọc máu, vận mạch, truyền máu, kháng sinh, kháng đông, kháng kết tập tiểu cầu, statin, ức chế thụ thể, kháng aldosteron, giảm tiền tải, giảm hậu tải, kiểm soát tần số tim, kiểm soát huyết áp, kiểm soát đường huyết, PPI, điều trị triệu chứng. Ghi cùng một dòng, cách nhau bởi dấu phẩy.</div>
+
+    <div id="prompt15" style="display: none;">Viết lại chính xác các bệnh của bệnh nhân nhân được chẩn đoán theo từng thời điểm (các bệnh này sẽ nằm trong cột diễn tiến bệnh, sau các cụm từ "chẩn đoán", "vấn đề", "cđ", "vđ"). Nếu có bệnh nào đã chẩn đoán tại thời điểm trước rồi thì không viết lặp lại, chỉ cần ghi bệnh mới (nếu có).</div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            }).catch(err => {
+                console.error('Không thể sao chép: ', err);
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.className = "toast show";
+            setTimeout(() => { 
+                toast.className = toast.className.replace("show", ""); 
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
